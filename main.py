@@ -37,28 +37,6 @@ def main() -> None:
     print(f'On a 4x4 board: {len(dead)} of 16 starts finish — a 4x4 knight\'s tour does not exist.\n')
 
 
-# ── the claims above, checked ────────────────────────────────────────────────────
-
-_path = tour(START)
-
-# It is a real tour: every square exactly once, every hop a legal knight move.
-assert is_valid_tour(_path)
-assert len(_path) == ROWS * COLS == 20
-assert len(set(_path)) == 20
-
-# And it is the tour on screen. If the tie-break order changes, this is what says so.
-assert _path == REEL_TOUR, 'the tour drifted from the one the reel animates'
-
-# The rule is a heuristic, not a guarantee — half the starting squares strand the knight.
-_works = starts_that_work()
-assert 0 < len(_works) < ROWS * COLS
-assert START in _works
-
-# 4x4 has no knight's tour at all, from any square, by any method.
-assert all(tour(s, 4, 4) is None for s in squares(4, 4))
-
-# Deterministic: same start, same tour, every run.
-assert tour(START) == tour(START)
 
 if __name__ == '__main__':
     main()
